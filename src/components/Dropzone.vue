@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue';
 import { useDropzone } from 'vue3-dropzone';
+import {useSongStore} from "../stores/tableStore.ts";
+import Papa from "papaparse";
+import {Song} from "../types.ts";
 
 const state = reactive<{files: any}>({
   files: [],
 });
+
+const songStore = useSongStore();
 
 const { getRootProps, getInputProps, isDragActive, ...rest } = useDropzone({
   onDrop,
@@ -22,6 +27,16 @@ function onDrop(acceptFiles: any, rejectReasons: any) {
   console.log(acceptFiles);
   console.log(rejectReasons);
   state.files = acceptFiles;
+
+  const file = acceptFiles[0];
+  if (file) {
+    Papa.parse(file, {
+      header: true,
+      complete: (results) => {
+        songStore.setState(results.data as Song[]);
+      },
+    });
+  }
 }
 
 function handleClickDeleteFile(index: number) {

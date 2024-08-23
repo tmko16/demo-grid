@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { NLayout, NLayoutHeader, NLayoutSider, NH2, NLayoutFooter} from 'naive-ui'
 import Dropzone from "./components/Dropzone.vue";
+import DTable from "./components/DTable.vue";
 </script>
 
   <template>
@@ -15,11 +16,7 @@ import Dropzone from "./components/Dropzone.vue";
             <dropzone></dropzone>
           </n-layout-sider>
           <n-layout content-style="padding: 24px;">
-            <n-h2>Pingshan Road</n-h2>
-            <n-h2>Pingshan Road</n-h2>
-            <n-h2>Pingshan Road</n-h2>
-            <n-h2>Pingshan Road</n-h2>
-            <n-h2>Pingshan Road</n-h2>
+             <d-table/>
           </n-layout>
         </n-layout>
         <n-layout-footer
