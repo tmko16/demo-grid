@@ -40,7 +40,6 @@ const cols = [
             strong: true,
             tertiary: true,
             size: 'small',
-            onClick: () => console.log('test'),
           },
           { default: () => 'Play' }
       );

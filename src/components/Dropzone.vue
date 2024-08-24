@@ -16,21 +16,18 @@ const onDrop = async  (acceptFiles: any,  ) =>  {
 
   const file = acceptFiles[0];
   await fakeLoader(() => {
-    console.log(1);
     dataStore.setLoadingState({
       state: 'loading',
       percentage: 20
     })
   }, 2000)
   await fakeLoader(() => {
-    console.log(2)
     dataStore.setLoadingState({
       state: 'loading',
       percentage: 60
     })
   }, 5000)
   await fakeLoader(() => {
-    console.log(33)
     dataStore.setLoadingState({
       state: 'done',
       percentage: 100
@@ -39,9 +36,7 @@ const onDrop = async  (acceptFiles: any,  ) =>  {
       Papa.parse(file, {
         header: true,
         complete: (results) => {
-          console.log(55)
           dataStore.setState(results.data as Song[]);
-          console.log(66, dataStore.getLoadingState, dataStore.getState)
         },
       });
     }
@@ -52,16 +47,6 @@ const onDrop = async  (acceptFiles: any,  ) =>  {
 const { getRootProps, getInputProps, isDragActive, ...rest } = useDropzone({
   onDrop,
 });
-
-watch(state, () => {
-  console.log('state', state);
-});
-
-watch(isDragActive, () => {
-  console.log('isDragActive', isDragActive.value, rest);
-});
-
-
 
 function handleClickDeleteFile(index: number) {
   state.files.splice(index, 1);

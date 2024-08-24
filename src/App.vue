@@ -29,8 +29,7 @@ const { getLoadingState, } = useDataStore()
                   processing
               />
               <n-h2>Please drop csv file </n-h2>
-
-             <d-table/>
+             <d-table v-if="getLoadingState.state === 'done'"/>
           </n-layout>
         </n-layout>
         <n-layout-footer
