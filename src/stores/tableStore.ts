@@ -12,7 +12,7 @@ export const useDataStore = defineStore('dataStore', () => {
     const loadingState = ref<LoadState>({state: 'idle', percentage: 0})
 
     const clearState = () => {
-        state.value = []
+        setState([])
         setLoadingState({
             state: 'idle',
             percentage: 0

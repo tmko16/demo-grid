@@ -13,20 +13,17 @@ const state = reactive<{files: any}>({
 const dataStore = useDataStore();
 const onDrop = async  (acceptFiles: any,  ) =>  {
   state.files = acceptFiles;
-
   const file = acceptFiles[0];
-  await fakeLoader(() => {
-    dataStore.setLoadingState({
-      state: 'loading',
-      percentage: 20
-    })
-  }, 2000)
+  dataStore.setLoadingState({
+    state: 'loading',
+    percentage: 20
+  })
   await fakeLoader(() => {
     dataStore.setLoadingState({
       state: 'loading',
       percentage: 60
     })
-  }, 5000)
+  }, 2000)
   await fakeLoader(() => {
     dataStore.setLoadingState({
       state: 'done',
@@ -36,7 +33,8 @@ const onDrop = async  (acceptFiles: any,  ) =>  {
       Papa.parse(file, {
         header: true,
         complete: (results) => {
-          dataStore.setState(results.data as Song[]);
+          const filtered = results.data.filter(item => (item as Song).title) as Song[];
+          dataStore.setState(filtered);
         },
       });
     }
@@ -44,12 +42,12 @@ const onDrop = async  (acceptFiles: any,  ) =>  {
 
 }
 
-const { getRootProps, getInputProps, isDragActive, ...rest } = useDropzone({
+const { getRootProps, getInputProps, isDragActive } = useDropzone({
   onDrop,
 });
 
-function handleClickDeleteFile(index: number) {
-  state.files.splice(index, 1);
+function handleClickDeleteFile() {
+  dataStore.clearState()
 }
 </script>
 
