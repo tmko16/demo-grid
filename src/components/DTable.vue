@@ -41,7 +41,7 @@ const cols = [
             tertiary: true,
             size: 'small',
           },
-          { default: () => 'Play' }
+          { default: () => 'Do something' }
       );
     },
   },
