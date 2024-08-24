@@ -17,7 +17,7 @@ const { getLoadingState, } = useDataStore()
         </n-layout-header>
         <n-layout has-sider position="absolute" style="top: 64px; bottom: 64px">
           <n-layout-sider bordered content-style="padding: 24px;">
-            Drop files here
+            Drop CSV file here
             <dropzone></dropzone>
           </n-layout-sider>
           <n-layout content-style="padding: 24px;">
@@ -28,8 +28,7 @@ const { getLoadingState, } = useDataStore()
                   indicator-placement="inside"
                   processing
               />
-              <n-h2>Please drop csv file </n-h2>
-             <d-table v-if="getLoadingState.state === 'done'"/>
+             <d-table v-if="getLoadingState.state === 'done' || getLoadingState.state === 'idle'"/>
           </n-layout>
         </n-layout>
         <n-layout-footer
