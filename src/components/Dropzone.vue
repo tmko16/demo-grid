@@ -1,15 +1,53 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue';
 import { useDropzone } from 'vue3-dropzone';
-import {useSongStore} from "../stores/tableStore.ts";
 import Papa from "papaparse";
 import {Song} from "../types.ts";
+import {useDataStore} from "../stores/tableStore.ts";
+import fakeLoader from "../utils/fakeLoader.ts";
 
 const state = reactive<{files: any}>({
   files: [],
 });
 
-const songStore = useSongStore();
+const dataStore = useDataStore();
+const onDrop = async  (acceptFiles: any,  ) =>  {
+  state.files = acceptFiles;
+
+  const file = acceptFiles[0];
+  await fakeLoader(() => {
+    console.log(1);
+    dataStore.setLoadingState({
+      state: 'loading',
+      percentage: 20
+    })
+  }, 2000)
+  await fakeLoader(() => {
+    console.log(2)
+    dataStore.setLoadingState({
+      state: 'loading',
+      percentage: 60
+    })
+  }, 5000)
+  await fakeLoader(() => {
+    console.log(33)
+    dataStore.setLoadingState({
+      state: 'done',
+      percentage: 100
+    })
+    if (file) {
+      Papa.parse(file, {
+        header: true,
+        complete: (results) => {
+          console.log(55)
+          dataStore.setState(results.data as Song[]);
+          console.log(66, dataStore.getLoadingState, dataStore.getState)
+        },
+      });
+    }
+  }, 2000)
+
+}
 
 const { getRootProps, getInputProps, isDragActive, ...rest } = useDropzone({
   onDrop,
@@ -23,21 +61,7 @@ watch(isDragActive, () => {
   console.log('isDragActive', isDragActive.value, rest);
 });
 
-function onDrop(acceptFiles: any, rejectReasons: any) {
-  console.log(acceptFiles);
-  console.log(rejectReasons);
-  state.files = acceptFiles;
 
-  const file = acceptFiles[0];
-  if (file) {
-    Papa.parse(file, {
-      header: true,
-      complete: (results) => {
-        songStore.setState(results.data as Song[]);
-      },
-    });
-  }
-}
 
 function handleClickDeleteFile(index: number) {
   state.files.splice(index, 1);

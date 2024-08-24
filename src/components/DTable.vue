@@ -11,11 +11,11 @@
 <script lang="ts" setup>
 import { h } from 'vue';
 import { NButton, NDataTable } from 'naive-ui';
-import {useSongStore} from "../stores/tableStore.ts";
+import {useDataStore} from "../stores/tableStore.ts";
 
 
 
-const songStore = useSongStore();
+const songStore = useDataStore();
 
 const cols = [
   {
