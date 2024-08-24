@@ -1,9 +1,8 @@
 
 <template>
-  {{songStore.getState}}
   <n-data-table
       :columns="cols"
-      :data="songStore.getState"
+      :data="getState"
       :bordered="false"
   />
 </template>
@@ -15,7 +14,8 @@ import {useDataStore} from "../stores/tableStore.ts";
 
 
 
-const songStore = useDataStore();
+const store = useDataStore();
+const {getState} = store
 
 const cols = [
   {

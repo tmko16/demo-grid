@@ -23,9 +23,9 @@ export const useDataStore = defineStore('dataStore', () => {
         state.value = payload
     }
     const getState = computed(() => {
-        return state.value
+        return state
     })
-    const getLoadingState = computed(() => loadingState.value)
+    const getLoadingState = computed(() => loadingState)
     const setLoadingState = (payload: LoadState) => {
         loadingState.value = payload
     }
