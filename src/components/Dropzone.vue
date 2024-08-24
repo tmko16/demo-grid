@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, watch } from 'vue';
+import { reactive } from 'vue';
 import { useDropzone } from 'vue3-dropzone';
 import Papa from "papaparse";
 import {Song} from "../types.ts";
@@ -56,8 +56,8 @@ function handleClickDeleteFile() {
     <div v-if="state.files.length > 0" class="files">
       <div class="file-item" v-for="(file, index) in state.files" :key="index">
         <span>{{ file.name }}</span>
-        <span class="delete-file" @click="handleClickDeleteFile(index)"
-        >Delete</span
+        <span class="delete-file" @click="handleClickDeleteFile()"
+        >Some action</span
         >
       </div>
     </div>
